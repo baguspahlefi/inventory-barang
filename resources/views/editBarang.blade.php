@@ -31,46 +31,47 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <form method="POST" action="{{route('tambah-barang.store')}}">
+                <form method="POST" action="{{route('tambah-barang.update',$items->id)}}">
+                  @method('PUT')
                     @csrf
                     <div class="form-group">
                       <label for="kd_barang">Kode Barang</label>
-                      <input type="text" class="form-control @error('kd_barang') is-invalid @enderror" id="kd_barang" name="kd_barang" placeholder="*A00001" value="{{ old('kd_barang') }}">
+                      <input type="text" class="form-control @error('kd_barang') is-invalid @enderror" id="kd_barang" name="kd_barang" placeholder="*A00001" value="{{ $items->kd_barang }}" readonly>
                       @error('kd_barang')
                           <div class="text-danger">{{$message}}</div>
                       @enderror
                     </div>
                     <div class="form-group">
                         <label for="nama_barang">Nama Barang</label>
-                        <input type="text" class="form-control @error('nama_barang') is-invalid @enderror" id="nama_barang" name="nama_barang" placeholder="Inputkan Nama Barang" value="{{ old('nama_barang') }}">
+                        <input type="text" class="form-control @error('nama_barang') is-invalid @enderror" id="nama_barang" name="nama_barang" placeholder="Inputkan Nama Barang" value="{{ $items->nama_barang }}">
                         @error('nama_barang')
                           <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="jenis_barang">Jenis Barang</label>
-                        <input type="text" class="form-control @error('jenis_barang') is-invalid @enderror" id="jenis_barang" name="jenis_barang" placeholder="Inputkan Jenis Barang" value="{{ old('jenis_barang') }}">
+                        <input type="text" class="form-control @error('jenis_barang') is-invalid @enderror" id="jenis_barang" name="jenis_barang" placeholder="Inputkan Jenis Barang" value="{{ $items->jenis_barang }}">
                         @error('jenis_barang')
                           <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="stok_barang">Stok Barang</label>
-                        <input type="text" class="form-control @error('stok_barang') is-invalid @enderror" id="stok_barang" name="stok_barang" placeholder="Inputkan Jumlah Stok" value="{{ old('stok_barang') }}">
+                        <input type="text" class="form-control @error('stok_barang') is-invalid @enderror" id="stok_barang" name="stok_barang" placeholder="Inputkan Jumlah Stok" value="{{ $items->stok_barang }}">
                         @error('stok_barang')
                           <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="harga_barang">Harga Barang Satuan</label>
-                        <input type="text" class="form-control @error('harga_barang') is-invalid @enderror" id="harga_barang" name="harga_barang" placeholder="Inputkan Harga Barang" value="{{ old('harga_barang') }}">
+                        <input type="text" class="form-control @error('harga_barang') is-invalid @enderror" id="harga_barang" name="harga_barang" placeholder="Inputkan Harga Barang" value="{{ $items->harga_barang }}">
                         @error('harga_barang')
                           <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="tgl_masuk_barang">Tanggal Barang Masuk</label>
-                        <input type="date" class="form-control @error('tgl_masuk_barang') is-invalid @enderror" id="tgl_masuk_barang" name="tgl_masuk_barang" placeholder="Inputkan Tanggal Barang Masuk" value="{{ old('tgl_masuk_barang') }}">
+                        <input type="date" class="form-control @error('tgl_masuk_barang') is-invalid @enderror" id="tgl_masuk_barang" name="tgl_masuk_barang" placeholder="Inputkan Tanggal Barang Masuk" value="{{ $items->tgl_masuk_barang }}">
                         @error('tgl_masuk_barang')
                           <div class="text-danger">{{$message}}</div>
                         @enderror

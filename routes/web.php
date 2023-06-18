@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TambahBarangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/create', [TambahBarangController::class, 'index'])->name('tambah-barang.create');
+    Route::post('/store', [TambahBarangController::class, 'store'])->name('tambah-barang.store');
+    Route::get('/edit/{id}', [TambahBarangController::class, 'edit'])->name('tambah-barang.edit');
+    Route::put('/update/{id}', [TambahBarangController::class, 'update'])->name('tambah-barang.update');
+    Route::delete('/delete/{id}', [TambahBarangController::class, 'destroy'])->name('tambah-barang.destroy');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

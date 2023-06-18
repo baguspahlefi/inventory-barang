@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-pages')
 @section('title')
     Dashboard - Inventory-app
 @endsection
@@ -34,10 +34,9 @@
               {{session('pesan')}}.
             </div>
           @endif
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title"><b>Data Barang</b></h3>
-              <a href="#" class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus"></i> Tambah Data</a>            
+          <div class="container">
+            <div class="box-header my-4">
+              <a href="{{route('tambah-barang.create')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Barang</a>            
               <a href="#" target="_blank" class="btn btn-sm btn-default pull-right" style="margin-right: 20px"><i class="fa fa-print"></i> Print PDF</a>
             </div>
             <!-- /.box-header -->
@@ -56,16 +55,23 @@
                     </tr>
                 </thead>
                 <tbody>
+                  @foreach ($items as $item)
                   <tr>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                  </tr>  
+                    <td> {{ $loop->iteration }} </td>
+                    <td> {{ $item->kd_barang }} </td>
+                    <td> {{ $item->nama_barang }} </td>
+                    <td> {{ $item->jenis_barang }} </td>
+                    <td> {{ $item->stok_barang }} </td>
+                    <td> Rp.{{ $item->harga_barang }} </td>
+                    <td> {{ $item->tgl_masuk_barang }} </td>
+                    <td> 
+                        <a class="btn btn btn-warning" href="{{route('tambah-barang.edit',$item->id)}}" role="button" ><i class="fa fa-edit"></i></a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete{{$item->id}}">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                    </td> 
+                  </tr>
+                  @endforeach
                 </tbody>
               </table>
                 <div class="modal fade" id="#">
@@ -77,11 +83,11 @@
                         <h4 class="modal-title">Warning</h4>
                       </div>
                       <div class="modal-body">
-                        <p>Anda yakin ingin menghapus  ? </p>
+                        <p>Anda yakin ingin menghapus {{$item->kd_barang}} ? </p>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                        <a href="#" role="button" class="btn btn-danger">Delete</a>
+                        <a href="{{route('tambah-barang.destroy',$item->id)}}" role="button" class="btn btn-danger">Delete</a>
                       </div>
                     </div>
                     <!-- /.modal-content -->
