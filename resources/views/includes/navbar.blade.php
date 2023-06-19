@@ -8,6 +8,9 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{route('home')}}" class="nav-link">Home</a>
         </li>
+        <li class="nav-item">
+          <a href="/cv" class="nav-link">CV</a>
+        </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -28,11 +31,12 @@
             </li>
         </form>
         @endauth
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
+     
+        <li class="nav-item">
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+            <i class="fas fa-th-large"></i>
+          </a>
+        </li>
     </ul>
   </nav>
   <!-- /.navbar -->

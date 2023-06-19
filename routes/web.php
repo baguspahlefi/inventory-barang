@@ -22,6 +22,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/cv', function () {
+    return view('cv');
+})->name('cv');
+
 Route::get('/print', [TambahBarangController::class, 'print'])->name('tambah-barang.print');
 
 Route::middleware('auth')->group(function () {
