@@ -104,4 +104,11 @@ class TambahBarangController extends Controller
         sleep(1);
         return redirect()->route('home')->with('pesan', 'Data Berhasil Di Hapus');
     }
+
+    public function print(){
+        $items = Barang::all();
+        return view('barangPrintPdf', [
+            'items' => $items
+        ]);
+    }
 }

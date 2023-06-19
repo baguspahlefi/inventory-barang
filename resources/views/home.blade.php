@@ -36,8 +36,8 @@
           @endif
           <div class="container">
             <div class="box-header my-4">
-              <a href="{{route('tambah-barang.create')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Barang</a>            
-              <a href="#" target="_blank" class="btn btn-sm btn-default pull-right" style="margin-right: 20px"><i class="fa fa-print"></i> Print PDF</a>
+              <a href="{{route('tambah-barang.create')}}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Barang</a>            
+              <a href="{{route('tambah-barang.print')}}" target="_blank" class="btn btn-sm btn-primary pull-right" style="margin-right: 20px"><i class="fa fa-print"></i> Print PDF</a>
             </div>
             <!-- /.box-header -->
             <div class="card-body" style="overflow-x: auto;">
@@ -51,7 +51,10 @@
                       <th scope="col">Stok Barang</th>
                       <th scope="col">Harga Barang Satuan</th>                
                       <th scope="col">Tanggal Masuk</th>
+                      @if (!Auth::guest())
                       <th scope="col">Aksi</th>
+                      @else
+                      @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -64,30 +67,38 @@
                     <td> {{ $item->stok_barang }} </td>
                     <td> Rp.{{ $item->harga_barang }} </td>
                     <td> {{ $item->tgl_masuk_barang }} </td>
+                    @if (!Auth::guest())
                     <td> 
-                        <a class="btn btn btn-warning" href="{{route('tambah-barang.edit',$item->id)}}" role="button" ><i class="fa fa-edit"></i></a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete{{$item->id}}">
-                          <i class="fa fa-trash"></i>
-                        </button>
+                      <a class="btn btn btn-warning" href="{{route('tambah-barang.edit',$item->id)}}" role="button" ><i class="fa fa-edit"></i></a>
+                      @role('admin')
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete{{$item->id}}">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                      @endrole
                     </td> 
+                    @else
+                    @endif
                   </tr>
                   @endforeach
                 </tbody>
               </table>
-                <div class="modal fade" id="#">
+                <div class="modal fade" id="delete{{ $item->id }}">
                   <div class="modal-dialog modal-md">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Warning</h4>
                       </div>
                       <div class="modal-body">
                         <p>Anda yakin ingin menghapus {{$item->kd_barang}} ? </p>
                       </div>
                       <div class="modal-footer">
+                        <form action="{{route('tambah-barang.destroy',$item->id)}}" method="POST">
+                          @csrf
+                          @method('delete')
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                        <a href="{{route('tambah-barang.destroy',$item->id)}}" role="button" class="btn btn-danger">Delete</a>
                       </div>
                     </div>
                     <!-- /.modal-content -->
